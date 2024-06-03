@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,27 +14,17 @@ namespace tictactoepractice
     public partial class TicTacToeGameBoard : Form
     {
 
-        //public enum Player
-        //{ 
-        //    X, O
-
-        //}
-
-        //public PlayerSymbol player{ get; } = PlayerSymbol.X;
-        //public PlayerSymbol cpu { get; } = PlayerSymbol.O;
-
-        //PlayerSymbol currentPlayer;
-        //Random random = new Random();
-        //int playerWinCount = 0;
-        //int cpuWinCount = 0;
+       
 
 
        private List<Button> buttons;
         private CheckGame checkGame;
         private ComputerPlayer cpu;
         private HumanPlayer player;
-       // private Timer CPUTimer;
-       // PlayerSymbol currentPlayer;
+        private GameCount winCount;
+        private RestartGame restartGame;
+     
+      
 
 
         public TicTacToeGameBoard()
@@ -43,16 +34,31 @@ namespace tictactoepractice
             buttons = new List<Button> { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
             player = new HumanPlayer(PlayerSymbol.X);
             cpu = new ComputerPlayer(PlayerSymbol.O, buttons);
+            winCount = new GameCount(PlayerWinScore, CPUWinScore);
+             restartGame = new RestartGame(buttons);
+            checkGame = new CheckGame(winCount, restartGame, CPUTimer);
+            //restartGame = new RestartGame(buttons);
+            //checkGame.SetRestartGame(restartGame);
+            //checkGame.SetRestartGame(restartGame);
+            // winCount = new GameCount(PlayerWinScore, CPUWinScore);
 
-            checkGame = new CheckGame(PlayerWinScore, CPUWinScore);
-            //CPUTimer = new Timer();
-            //CPUTimer.Interval = 1000;
-            //CPUTimer.Tick += new EventHandler(CPUmove);
 
 
-           
 
-            RestartGame();
+            //  checkGame = new CheckGame(winCount, restartGame, CPUTimer);
+
+            //  CPUTimer.Interval = 1000; // CPU move interval in milliseconds
+            // CPUTimer.Tick += CPUmove;
+
+
+            foreach (var button in buttons)
+            {
+                button.Click += PlayerClickButton;
+            }
+
+
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -62,48 +68,70 @@ namespace tictactoepractice
 
         private void CPUmove(object sender, EventArgs e)
         {
-            //if (buttons.Count > 0)
-            //{
-            //    int index = random.Next(buttons.Count);
-            //    buttons[index].Enabled = false;
-            //    currentPlayer = cpu;
-            //    buttons[index].Text = currentPlayer.ToString();
-            //    buttons[index].BackColor = Color.LavenderBlush;
-            //    buttons.RemoveAt(index);
-            //    CheckGame();
-            //    CPUTimer.Stop();
-            //}
 
+           // CPUTimer.Stop();
             cpu.MakeMove();
             CPUTimer.Stop();
-            CheckGame();
+
+            Console.WriteLine("CPU move made");
+            Console.WriteLine("Button states after CPU move:");
+            foreach (var btn in buttons)
+            {
+                Console.WriteLine($"{btn.Name}: {btn.Text}, Enabled: {btn.Enabled}");
+            }
+          //  CheckGame();
+            checkGame.GameCheck(buttons);
         }
 
         private void PlayerClickButton(object sender, EventArgs e)
         {
+            if (checkGame.GameOver) return;
             var button = (Button)sender;
-            // currentPlayer = player;
-            //button.Text = currentPlayer.ToString();
+            if (!button.Enabled) return;
+            // List<Button> availableButtons = buttons.Where(b => b.Enabled).ToList();
+
             button.Text = player.player.ToString();
             button.Enabled = false;
             button.BackColor = Color.DarkSeaGreen;
-            buttons.Remove(button);
+
+
+            Console.WriteLine("Player clicked: " + button.Name);
+            Console.WriteLine("Button states after player click:");
+            Console.WriteLine("Button color after player click: " + button.BackColor);
+            foreach (var btn in buttons)
+            {
+                Console.WriteLine($"{btn.Name}: {btn.Text}, Enabled: {btn.Enabled}");
+            }
+
             CheckGame();
-            CPUTimer.Start();
+            //List<Button> availableButtons = buttons.Where(b => b.Enabled).ToList();
+            //cpu.UpdateButtons(availableButtons);
+           
+
+
+                List<Button> availableButtons = buttons.Where(b => b.Enabled).ToList();
+                cpu.UpdateButtons(availableButtons);
+                CPUTimer.Start();
+            
+            
         }
 
         private void RestartGame(object sender, EventArgs e)
         {
-            RestartGame();
+            Console.WriteLine("Restarting game...");
+            checkGame.GameOver = false;
+            restartGame.ClearGame();
+          
         }
 
         private void CheckGame()
         {
-
+            Console.WriteLine("Checking game...");
 
             checkGame.GameCheck(buttons);
-            CPUTimer.Stop();
-            RestartGame();
+           // CPUTimer.Stop();
+           // RestartGame();
+
             //if(button1.Text == "X" && button2.Text == "X" && button3.Text == "X"
             //  || button4.Text == "X" && button5.Text == "X" && button6.Text == "X"
             //  || button7.Text == "X" && button8.Text == "X" && button9.Text == "X"
@@ -142,29 +170,7 @@ namespace tictactoepractice
 
         }
 
-        private void RestartGame()
-        {
-
-            //buttons = new List<Button> { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
-
-            //foreach(Button x in buttons)
-            //{
-            //    x.Enabled = true;
-            //    x.Text = "";
-            //    x.BackColor = Color.Black;
-            //}
-
-            foreach (var button in buttons)
-            {
-                button.Text = string.Empty;
-                button.Enabled = true;
-                button.BackColor = default(Color);
-            }
-            buttons = new List<Button> { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
-            CPUTimer.Stop();
-        
-          
-        }
+    
 
         private void TicTacToeGameBoard_Load(object sender, EventArgs e)
         {
