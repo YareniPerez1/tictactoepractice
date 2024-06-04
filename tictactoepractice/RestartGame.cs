@@ -14,34 +14,34 @@ namespace tictactoepractice
         private CheckGame checkGame;
 
 
-       public RestartGame(List<Button> buttons)
+       public RestartGame(List<Button> buttons
+           , CheckGame checkGame)
         {
             this.buttons = buttons;
+            this.checkGame = checkGame;
           
            
         }
 
         public void ClearGame()
         {
-            
-               //checkGame.ResetGameOver();
-            
 
+
+            if (checkGame.GameOver == true)
+            {
+                checkGame.GameOver = false;
+            }
 
             foreach (var button in buttons)
-            {
+            { 
                 button.Text = string.Empty;
                 button.Enabled = true;
-                button.BackColor = default(Color);
+                button.BackColor = Color.Black;
+              
 
-                //checkGame.GameOver = false;
+               
             }
-            //checkGame.ResetGameOver();
-
-            //if (checkGame != null)
-            //{
-            //    checkGame.ResetGameOver();
-            //}
+           
 
 
 

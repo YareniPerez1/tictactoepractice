@@ -26,14 +26,14 @@ namespace tictactoepractice
        
         }
 
-        //public void SetRestartGame(RestartGame restartGame)
-        //{
-        //    this.restartGame = restartGame;
-        //}
+        public void SetRestartGame(RestartGame restartGame)
+        {
+            this.restartGame = restartGame;
+        }
 
         public void GameCheck(List<Button> buttons)
         {
-          //  if (GameOver) return;
+          
 
 
             if ((buttons[0].Text == "X" && buttons[1].Text == "X" && buttons[2].Text == "X"
@@ -50,18 +50,16 @@ namespace tictactoepractice
 
             {
                 CPUTimer.Stop();
-                GameOver = true;
+               GameOver = true;
                 //DisableAllButtons(buttons);
                 winCount.CountPlayerWin();
                 winCount.UpdatePlayerWin();
                
              
                 MessageBox.Show("Player Wins! Good Job!");
-              // CPUTimer.Stop();
-                restartGame.ClearGame();
-                CPUTimer.Start();
+            
+               restartGame.ClearGame();
                
-               // CPUTimer.Start();
              
 
                
@@ -97,13 +95,10 @@ namespace tictactoepractice
             }
 
 
-            //if (GameOver)
-            //{
-            //    restartGame.ClearGame();
-            //    GameOver = false; // Reset game over state
-            //}
+           
         }
 
+        
 
         private bool IsDraw(List<Button> buttons)
         {
@@ -119,12 +114,12 @@ namespace tictactoepractice
         //    }
         //}
 
-        //public void ResetGameOver()
-        //{
-        //    GameOver = false;
-        //}
+        public void ResetGameOver()
+        {
+            GameOver = false;
+        }
 
-        
+
 
     }
 
