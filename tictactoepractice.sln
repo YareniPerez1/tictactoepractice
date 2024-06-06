@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tictactoepractice", "tictactoepractice\tictactoepractice.csproj", "{7D9A825D-418B-451B-94F4-6B98238847E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeTests", "TicTacToeTests\TicTacToeTests.csproj", "{B4CA3DF4-52F8-4151-8966-1ED1E5D7B186}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7D9A825D-418B-451B-94F4-6B98238847E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D9A825D-418B-451B-94F4-6B98238847E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D9A825D-418B-451B-94F4-6B98238847E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CA3DF4-52F8-4151-8966-1ED1E5D7B186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CA3DF4-52F8-4151-8966-1ED1E5D7B186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CA3DF4-52F8-4151-8966-1ED1E5D7B186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CA3DF4-52F8-4151-8966-1ED1E5D7B186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -64,7 +64,7 @@ namespace tictactoepractice
             CPUTimer.Stop();
 
          
-            checkGame.GameCheck(buttons);
+            checkGame.CheckOWin(buttons);
         }
 
         private void PlayerClickButton(object sender, EventArgs e)
@@ -95,9 +95,10 @@ namespace tictactoepractice
 
         private void CheckGame()
         {
-           // Console.WriteLine("Checking game...");
+            // Console.WriteLine("Checking game...");
 
-            checkGame.GameCheck(buttons);
+            // checkGame.GameCheck(buttons);
+            checkGame.CheckXWin(buttons);
            
 
         }
